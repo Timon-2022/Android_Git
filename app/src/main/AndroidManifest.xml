@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.App01">
         <activity
-            android:name=".SurfaceViewActivity2"
+            android:name=".ThunderNew.SurfaceViewActivity2"
             android:exported="false" />
         <activity
             android:name=".thunder.ThunderActivity"

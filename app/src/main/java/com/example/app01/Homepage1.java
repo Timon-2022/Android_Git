@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.example.app01.ThunderNew.SurfaceViewActivity2;
 import com.example.app01.drawpic.DrawActivity;
 import com.example.app01.lottery.LotteryDemo;
 import com.example.app01.thunder.ThunderActivity;
@@ -60,6 +61,15 @@ public class Homepage1 extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent7 = new Intent(Homepage1.this, ThunderActivity.class);
                 Homepage1.this.startActivity(intent7);
+            }
+        });
+
+        Button btnThundernew = (Button) this.findViewById(R.id.buttonThunderNew);
+        btnThundernew.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent8 = new Intent(Homepage1.this, SurfaceViewActivity2.class);
+                Homepage1.this.startActivity(intent8);
             }
         });
 
