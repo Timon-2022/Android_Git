@@ -24,6 +24,11 @@ public class MySurfaceView extends SurfaceView implements SurfaceHolder.Callback
 
     private float mx=500;
     private float my=1600;
+    float x1,y1;
+    float dx,dy;
+    private float mx1=500;
+    private float my1=1600;
+    private Hero hero;
 
     //手动调用
     public MySurfaceView(Context context) {
@@ -50,8 +55,29 @@ public class MySurfaceView extends SurfaceView implements SurfaceHolder.Callback
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        Log.i("监听器", "onTouchEvent: "+event.getAction());
 
+        Log.i("监听器", "onTouchEvent: "+event.getAction());
+        int key =  event.getAction();
+        switch (key) {
+            case MotionEvent.ACTION_DOWN:
+                x1 = event.getX();
+                y1 = event.getY();
+
+                if(hero==null){ hero = new Hero(x1,y1,mx1,my1); }
+                dx = x1 - mx1;
+                dy = y1 - my1;
+
+                Log.i("TAG", "onTouchEvent: dx="+dx+" dy="+dy);
+                break;
+            case MotionEvent.ACTION_UP:
+                break;
+            case MotionEvent.ACTION_MOVE:
+                mx1=event.getX()-dx;
+                my1=event.getY()-dy;
+                hero.setMx1(mx1);
+                hero.setMy1(my1);
+                Log.i("TAG", "onTouchEvent: mx1="+mx1+" my1="+my1);
+                break;}
         return true;
     }
 
@@ -59,37 +85,21 @@ public class MySurfaceView extends SurfaceView implements SurfaceHolder.Callback
     public void init(Context context){
         surfaceHolder=this.getHolder();
         surfaceHolder.addCallback(this);
-
         paint=new Paint();
-
 
         EnemyThread enemyThreadnew = new EnemyThread();
         new Thread(enemyThreadnew).start();
 
-        BulletThread bulletThread = new BulletThread(mx,my);
+        BulletThread bulletThread = new BulletThread(mx1,my1);
         new Thread(bulletThread).start();
 
-        GameThread gameThread =new GameThread(context,enemyThreadnew.getEnemyList(),
-                                                bulletThread.getBulletList(),this,mx,my);
+        GameThread gameThread =new GameThread(hero,context,enemyThreadnew.getEnemyList(), bulletThread.getBulletList(),this,mx1,my1);
         new Thread(gameThread).start();
-
-
     }
     @Override
-    public void surfaceCreated(@NonNull SurfaceHolder holder) {
-        Log.i("MySurfaceView", "surfaceCreated...");
-
-    }
-
-
-
+    public void surfaceCreated(@NonNull SurfaceHolder holder) { Log.i("MySurfaceView", "surfaceCreated..."); }
     @Override
-    public void surfaceChanged(@NonNull SurfaceHolder holder, int format, int width, int height) {
-
-    }
-
+    public void surfaceChanged(@NonNull SurfaceHolder holder, int format, int width, int height) { }
     @Override
-    public void surfaceDestroyed(@NonNull SurfaceHolder holder) {
-
-    }
+    public void surfaceDestroyed(@NonNull SurfaceHolder holder) { }
 }

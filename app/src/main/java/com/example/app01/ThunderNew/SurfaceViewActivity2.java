@@ -14,8 +14,8 @@ public class SurfaceViewActivity2 extends AppCompatActivity {
         setContentView(R.layout.activity_surface_view2);
 //        MySurfaceView mySurfaceView = new MySurfaceView(SurfaceViewActivity2.this);
         MySurfaceView mySurfaceView = this.findViewById(R.id.surfaceView);
-        TouchListener touchListener = new TouchListener();
-        mySurfaceView.setOnTouchListener(touchListener);
+//        TouchListener touchListener = new TouchListener();
+//        mySurfaceView.setOnTouchListener(touchListener);
 
     }
 }

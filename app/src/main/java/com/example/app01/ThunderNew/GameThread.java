@@ -23,41 +23,31 @@ public class GameThread implements Runnable{
     private Context context;
     private SurfaceHolder surfaceHolder;
     private List<Bullet> bulletList;
+    private Hero hero;
 
-    private float mx,my;
+    private float mx1,my1;
 
-        public GameThread(Context context, List<EnemyNew> enemyListnew,List<Bullet> bulletList,MySurfaceView mySurfaceView,  float mx, float my) {
-        this.context = context;
-        this.enemyListnew = enemyListnew;
-        this.bulletList=bulletList;
+        public GameThread(Hero hero,Context context, List<EnemyNew> enemyListnew,List<Bullet> bulletList,MySurfaceView mySurfaceView,  float mx1, float my1) {
+            this.hero= hero;
+            this.context = context;
+            this.enemyListnew = enemyListnew;
+            this.bulletList=bulletList;
 
-        this.mx = mx;
-        this.my = my;
-        this.mySurfaceView=mySurfaceView;
-        surfaceHolder=mySurfaceView.getHolder();
+            this.mx1 = mx1;
+            this.my1 = my1;
+            this.mySurfaceView=mySurfaceView;
+            surfaceHolder=mySurfaceView.getHolder();
     }
-
-    //  游戏线程功能
-    //绘制背景，绘制图片
 
     @Override
     public void run() {
          Activity activity =(Activity) context;
-//        Log.i("指针", "context=: "+context);
-
         Bitmap bitmapbg = BitmapFactory.decodeResource(activity.getResources(), R.drawable.bg2);
         Bitmap bmphero = BitmapFactory.decodeResource(activity.getResources(), R.drawable.hero1);
         Bitmap bmpenemy = BitmapFactory.decodeResource(activity.getResources(), R.drawable.enemy);
         Bitmap bmpBullet = BitmapFactory.decodeResource(activity.getResources(), R.drawable.bullet);
 
         paint = new Paint();
-
-//        TouchListener touchListener = new TouchListener();
-//        mySurfaceView.setOnTouchListener(touchListener);
-
-
-
-
         while(true){
 
             try {
@@ -68,12 +58,8 @@ public class GameThread implements Runnable{
             try{
                 canvas = surfaceHolder.lockCanvas();
                 canvas.drawBitmap(bitmapbg, 0, 0, paint);
-//                Log.i("canvas", "成功绘制背景="+bitmapbg);
-
-
-
                 //实现飞机移动的本质是改变飞机绘制的位置
-                canvas.drawBitmap(bmphero,mx,my,paint);
+                canvas.drawBitmap(bmphero,mx1,my1,paint);
 
 
                 for (int i = 0; i <enemyListnew.size(); i++) {
@@ -91,14 +77,6 @@ public class GameThread implements Runnable{
             }finally {
                 surfaceHolder.unlockCanvasAndPost(canvas);
             }
-//            Log.i("canvas", "成功载入画布: ");
-
-            //实现移动背景绘制
-
-
-
-
-
         }
 
     }
